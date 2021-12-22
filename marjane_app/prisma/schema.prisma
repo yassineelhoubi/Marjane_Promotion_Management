@@ -26,6 +26,8 @@ model SubAdmin {
   email    String @unique
   role     Role   @default(SUBADMIN)
   password String
+  center   Center @relation(fields: [idCenter], references: [id])
+  idCenter Int
 }
 
 model Manager {
@@ -41,4 +43,10 @@ enum Role {
   ADMIN
   SUBADMIN
   MANAGER
+}
+
+model Center {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  SubAdmin SubAdmin?
 }
