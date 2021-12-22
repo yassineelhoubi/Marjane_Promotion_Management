@@ -16,7 +16,7 @@ export const createToken = (payload = null, role = null) => {
 };
 // verify tokens
 export const verifyToken = (token = null, role = null) => {
-  if (!payload) return null;
+  if (!token) return null;
   if (!role) return null;
   try {
     switch (role) {
