@@ -4,7 +4,41 @@
 generator client {
   provider = "prisma-client-js"
 }
+
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id       Int    @id @default(autoincrement())
+  fName    String
+  lName    String
+  email    String @unique
+  role     Role   @default(ADMIN)
+  password String
+}
+
+model SubAdmin {
+  id       Int    @id @default(autoincrement())
+  fName    String
+  lName    String
+  email    String @unique
+  role     Role   @default(SUBADMIN)
+  password String
+}
+
+model Manager {
+  id       Int    @id @default(autoincrement())
+  fName    String
+  lName    String
+  email    String @unique
+  role     Role   @default(MANAGER)
+  password String
+}
+
+enum Role {
+  ADMIN
+  SUBADMIN
+  MANAGER
 }
