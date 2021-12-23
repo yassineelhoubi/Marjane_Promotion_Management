@@ -1,8 +1,8 @@
 import express from "express";
 const router = express.Router();
-import {testSubAdmin} from "../controllers"
+import {loginSubAdmin} from "../controllers"
 
-router.get('/testSubAdmin',testSubAdmin);
+router.post('/login',loginSubAdmin);
 
 
 

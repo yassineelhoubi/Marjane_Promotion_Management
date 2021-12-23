@@ -1,3 +1,3 @@
 export { createSubAdmin, loginAdmin } from "./adminController";
-export { testSubAdmin } from "./subAdminController";
+export { loginSubAdmin } from "./subAdminController";
 export { testDepartmentManager } from "./managerController";
