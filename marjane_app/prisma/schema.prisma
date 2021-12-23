@@ -19,13 +19,14 @@ model Admin {
 }
 
 model SubAdmin {
-  id       Int    @id @default(autoincrement())
-  fName    String
-  lName    String
-  email    String @unique
-  password String
-  center   Center @relation(fields: [idCenter], references: [id])
-  idCenter Int    @unique
+  id        Int         @id @default(autoincrement())
+  fName     String
+  lName     String
+  email     String      @unique
+  password  String
+  center    Center      @relation(fields: [idCenter], references: [id])
+  idCenter  Int         @unique
+  Promotion Promotion[]
 }
 
 model Manager {
@@ -51,4 +52,23 @@ model Category {
   center   Center    @relation(fields: [idCenter], references: [id])
   idCenter Int       @unique
   Manager  Manager?
+  Product  Product[]
+}
+
+model Product {
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  quantity   Int      @default(0)
+  category   Category @relation(fields: [idCategory], references: [id])
+  idCategory Int      @unique
+}
+
+model Promotion {
+  id             Int      @id @default(autoincrement())
+  percentage     Int      @default(0)
+  pointsFidelity Int      @default(0)
+  status         String
+  comment        String
+  SubAdmin       SubAdmin @relation(fields: [idSubAdmin], references: [id])
+  idSubAdmin     Int
 }
