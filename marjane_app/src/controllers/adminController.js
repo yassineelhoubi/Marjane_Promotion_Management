@@ -19,7 +19,7 @@ const loginAdmin = async (req, res) => {
     if (admin.password == password) {
       const token = createToken({ admin }, "ADMIN");
       token
-        ? res.status(200).json(token)
+        ? res.status(200).json({ token })
         : res.status(500).json({ error: "cant create token" });
     } else {
       res.status(200).json({ error: "password incorrect" });
