@@ -27,11 +27,11 @@ export const verifyToken = (token = null, role = null) => {
   try {
     switch (role) {
       case "ADMIN":
-        return jwt.verify(token, process.env.ADMIN);
+        return jwt.verify(token, process.env.SECRET_KEY_ADMIN);
       case "SUBADMIN":
-        return jwt.verify(token, process.env.SUBADMIN);
+        return jwt.verify(token, process.env.SECRET_KEY_SUBADMIN);
       case "MANAGER":
-        return jwt.verify(token, process.env.MANAGER);
+        return jwt.verify(token, process.env.SECRET_KEY_MANAGER);
       default:
         return null;
     }

@@ -42,11 +42,15 @@ const createSubAdmin = async (req, res, next) => {
     })
     .catch((e) => {
       res.status(400).json({
-        error: e,
+        error: e.message,
       });
     });
   if (newSubAdmin) {
-    // mail("elhoubiyassine@gmail.com", "1234", "yassine elhoubi");
+    mail(
+      newSubAdmin.email,
+      newSubAdmin.password,
+      `${newSubAdmin.fName + " " + newSubAdmin.lName}`
+    );
     res.status(201).json({
       response: "subadmin is create and email sent to the mailbox",
     });
