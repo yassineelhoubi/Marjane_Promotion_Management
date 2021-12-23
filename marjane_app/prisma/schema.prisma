@@ -15,7 +15,6 @@ model Admin {
   fName    String
   lName    String
   email    String @unique
-  role     Role   @default(ADMIN)
   password String
 }
 
@@ -24,29 +23,32 @@ model SubAdmin {
   fName    String
   lName    String
   email    String @unique
-  role     Role   @default(SUBADMIN)
   password String
   center   Center @relation(fields: [idCenter], references: [id])
-  idCenter Int
+  idCenter Int    @unique
 }
 
 model Manager {
-  id       Int    @id @default(autoincrement())
-  fName    String
-  lName    String
-  email    String @unique
-  role     Role   @default(MANAGER)
-  password String
-}
-
-enum Role {
-  ADMIN
-  SUBADMIN
-  MANAGER
+  id         Int      @id @default(autoincrement())
+  fName      String
+  lName      String
+  email      String   @unique
+  password   String
+  category   Category @relation(fields: [idCategory], references: [id])
+  idCategory Int      @unique
 }
 
 model Center {
-  id   Int    @id @default(autoincrement())
-  name String @unique
+  id       Int        @id @default(autoincrement())
+  name     String     @unique
   SubAdmin SubAdmin?
+  Category Category[]
+}
+
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  center   Center    @relation(fields: [idCenter], references: [id])
+  idCenter Int       @unique
+  Manager  Manager?
 }
