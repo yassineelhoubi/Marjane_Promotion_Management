@@ -5,11 +5,17 @@ export const createToken = (payload = null, role = null) => {
   if (!role) return null;
   switch (role) {
     case "ADMIN":
-      return jwt.sign(payload, process.env.ADMIN, { expiresIn: "1h" });
+      return jwt.sign(payload, process.env.SECRET_KEY_ADMIN, {
+        expiresIn: "1h",
+      });
     case "SUBADMIN":
-      return jwt.sign(payload, process.env.SUBADMIN, { expiresIn: "1h" });
+      return jwt.sign(payload, process.env.SECRET_KEY_SUBADMIN, {
+        expiresIn: "1h",
+      });
     case "MANAGER":
-      return jwt.sign(payload, process.env.MANAGER, { expiresIn: "1h" });
+      return jwt.sign(payload, process.env.SECRET_KEY_MANAGER, {
+        expiresIn: "1h",
+      });
     default:
       return null;
   }
