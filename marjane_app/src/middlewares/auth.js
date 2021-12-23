@@ -7,9 +7,7 @@ export const Auth =
       return res.status(401).json({ error: "unauthorized" });
     }
     const token = bearer.split(" ")[1];
-    console.log("token is :" + token);
-    const payload = verifyToken(token, "");
-    console.log("payload is :" + payload);
+    const payload = verifyToken(token, role);
     if (!payload) {
       return res.status(401).json({ error: "unauthenticated" });
     }
