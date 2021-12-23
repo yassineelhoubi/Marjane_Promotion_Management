@@ -1,10 +1,8 @@
 import express from "express";
 const router = express.Router();
-import { test } from "../controllers";
+import { createSubAdmin } from "../controllers";
 import { Auth } from "../middlewares";
 
-router.get("/getCenter", Auth(), test);
-router.post("/createCenterAdmin", test);
-router.get("/auth", test);
+router.post("/createSubAdmin", createSubAdmin);
 
 export { router };
