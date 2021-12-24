@@ -69,7 +69,7 @@ model Promotion {
   percentage     Int      @default(0)
   pointsFidelity Int      @default(0)
   status         String   @default("ongoing")
-  comment        String
+  comment        String   @default("")
   SubAdmin       SubAdmin @relation(fields: [idSubAdmin], references: [id])
   idSubAdmin     Int
   Product        Product  @relation(fields: [idProduct], references: [id])
