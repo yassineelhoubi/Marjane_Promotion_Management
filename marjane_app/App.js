@@ -5,7 +5,8 @@ const app = express();
 const host = process.env.host;
 const port = process.env.port;
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/admin", adminRouter);
 app.use("/api/subAdmin", subAdminRouter);
