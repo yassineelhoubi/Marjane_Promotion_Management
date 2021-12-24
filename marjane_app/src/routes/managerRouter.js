@@ -1,9 +1,9 @@
 import express from "express";
 const router = express.Router();
-import {testDepartmentManager} from "../controllers"
+import { loginManager } from "../controllers"
 
-router.get('/testDepartmentManager',testDepartmentManager);
+router.post('/login', loginManager);
 
 
 
-export  { router};
+export { router };
