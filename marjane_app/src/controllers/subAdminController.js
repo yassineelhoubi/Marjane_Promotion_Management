@@ -58,7 +58,27 @@ const createManager = async (req, res) => {
     }
 }
 
+const createPromo = async (req, res) => {
+    const { percentage, pointsFidelity, idSubAdmin, idProduct } = req.body
+
+    const newPromo = await prisma.promotion
+        .create({
+            data: { percentage, pointsFidelity, idSubAdmin, idProduct }
+        })
+        .catch((e) => {
+            res.status(400).json({
+                error: e.message,
+            });
+        });
+    if (newPromo) {
+        res.status(201).json({
+            response: "Promotion created successfully",
+        });
+    }
+}
+
 export {
     loginSubAdmin,
     createManager,
+    createPromo
 }
