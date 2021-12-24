@@ -50,30 +50,33 @@ model Category {
   id       Int       @id @default(autoincrement())
   name     String    @unique
   center   Center    @relation(fields: [idCenter], references: [id])
-  idCenter Int       
+  idCenter Int
   Manager  Manager?
   Product  Product[]
 }
 
 model Product {
-  id         Int      @id @default(autoincrement())
-  name       String   @unique
-  quantity   Int      @default(0)
-  category   Category @relation(fields: [idCategory], references: [id])
-  idCategory Int      @unique
+  id         Int         @id @default(autoincrement())
+  name       String      @unique
+  quantity   Int         @default(0)
+  category   Category    @relation(fields: [idCategory], references: [id])
+  idCategory Int         @unique
+  Promotion  Promotion[]
 }
 
 model Promotion {
   id             Int      @id @default(autoincrement())
   percentage     Int      @default(0)
   pointsFidelity Int      @default(0)
-  status         String
+  status         String   @default("ongoing")
   comment        String
   SubAdmin       SubAdmin @relation(fields: [idSubAdmin], references: [id])
   idSubAdmin     Int
+  Product        Product  @relation(fields: [idProduct], references: [id])
+  idProduct      Int
 }
 
 model logs {
-  id Int @id @default(autoincrement())
+  id      Int  @id @default(autoincrement())
   comment Json
 }
