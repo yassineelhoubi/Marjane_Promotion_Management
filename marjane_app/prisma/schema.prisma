@@ -50,7 +50,7 @@ model Category {
   id       Int       @id @default(autoincrement())
   name     String    @unique
   center   Center    @relation(fields: [idCenter], references: [id])
-  idCenter Int       @unique
+  idCenter Int       
   Manager  Manager?
   Product  Product[]
 }
