@@ -1,8 +1,10 @@
 import express from "express";
 const router = express.Router();
-import { loginManager } from "../controllers"
+import { loginManager, getManagerPromotions } from "../controllers"
+import { Auth } from "../middlewares";
 
 router.post('/login', loginManager);
+router.get('/getManagerPromotions', Auth("MANAGER"), getManagerPromotions);
 
 
 

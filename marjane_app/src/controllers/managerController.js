@@ -28,6 +28,35 @@ const loginManager = async (req, res) => {
     }
 };
 
-export  {
+const getManagerPromotions = async (req, res) => {
+
+    const idCategory = req.idCategory;
+    const promo = await prisma.category
+        .findMany({
+            where: {
+
+                id: idCategory,
+            },
+            select: {
+                Product: {
+                    include: {
+                        Promotion: true
+                    }
+                }
+            }
+
+        })
+        .catch((e) => {
+            res.status(400).json({
+                error: e.message,
+            });
+        });
+    if (promo) {
+        res.status(200).json({ res: promo });
+    }
+}
+
+export {
     loginManager,
+    getManagerPromotions,
 }
