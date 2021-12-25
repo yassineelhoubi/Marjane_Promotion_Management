@@ -60,7 +60,7 @@ model Product {
   name       String      @unique
   quantity   Int         @default(0)
   category   Category    @relation(fields: [idCategory], references: [id])
-  idCategory Int         @unique
+  idCategory Int         
   Promotion  Promotion[]
 }
 
