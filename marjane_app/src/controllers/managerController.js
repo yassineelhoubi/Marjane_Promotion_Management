@@ -31,19 +31,13 @@ const loginManager = async (req, res) => {
 const getManagerPromotions = async (req, res) => {
 
     const idCategory = req.idCategory;
-    const promo = await prisma.category
+    const promotion = await prisma.promotion
         .findMany({
             where: {
-
-                id: idCategory,
-            },
-            select: {
-                Product: {
-                    include: {
-                        Promotion: true
-                    }
+                Product:{
+                    idCategory:idCategory
                 }
-            }
+            },
 
         })
         .catch((e) => {
@@ -51,8 +45,8 @@ const getManagerPromotions = async (req, res) => {
                 error: e.message,
             });
         });
-    if (promo) {
-        res.status(200).json({ res: promo });
+    if (promotion) {
+        res.status(200).json({ promotion: promotion });
     }
 }
 
