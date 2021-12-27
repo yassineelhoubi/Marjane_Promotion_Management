@@ -1,6 +1,6 @@
 import express from "express";
 const router = express.Router();
-import { loginManager, getManagerPromotions, promoValidate } from "../controllers"
+import { loginManager, getManagerPromotions, promoValidate} from "../controllers"
 import { Auth } from "../middlewares";
 
 router.post('/login', loginManager);
