@@ -1,9 +1,12 @@
 import express from "express";
 const router = express.Router();
-import {testDepartmentManager} from "../controllers"
+import { loginManager, getManagerPromotions, promoValidate } from "../controllers"
+import { Auth } from "../middlewares";
 
-router.get('/testDepartmentManager',testDepartmentManager);
+router.post('/login', loginManager);
+router.get('/getManagerPromotions', Auth("MANAGER"), getManagerPromotions);
+router.patch('/promoValidate/:id', Auth("MANAGER"), promoValidate)
 
 
 
-export  { router};
+export { router };

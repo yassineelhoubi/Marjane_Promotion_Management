@@ -1,16 +1,81 @@
-const testDepartmentManager = async (req, res, next) => {
-    try {
+import { prisma } from "../../prisma/client";
+import { createToken } from "../utils";
 
-        console.log('testDepartmentManager')
-        res.json()
-    } catch (error) {
-        res.status(400).json({
-            message: error.message,
-            error: true
+const loginManager = async (req, res) => {
+    const { email, password } = req.body;
+    const manager = await prisma.manager
+        .findUnique({
+            where: {
+                email,
+            },
         })
+        .catch((e) => {
+            res.status(400).json({
+                error: e.message,
+            });
+        });
+    if (manager) {
+        if (manager.password == password) {
+            const token = createToken({ manager }, "MANAGER");
+            token
+                ? res.status(200).json({ token })
+                : res.status(500).json({ error: "cant create token" });
+        } else {
+            res.status(200).json({ error: "password incorrect" });
+        }
+    } else {
+        res.status(200).json({ error: "email incorrect" });
+    }
+};
+
+const getManagerPromotions = async (req, res) => {
+
+    const idCategory = req.idCategory;
+    const promotion = await prisma.promotion
+        .findMany({
+            where: {
+                Product: {
+                    idCategory: idCategory
+                }
+            },
+
+        })
+        .catch((e) => {
+            res.status(400).json({
+                error: e.message,
+            });
+        });
+    if (promotion) {
+        res.status(200).json({ promotion: promotion });
     }
 }
 
-export  {
-    testDepartmentManager,
+const promoValidate = async (req, res) => {
+    const id = req.params.id;
+    const {status} = req.body;
+    const updateStatus = await prisma.promotion
+        .update({
+            where: {
+                id:Number(id),
+            },
+            data: {
+                status,
+            },
+        })
+        .catch((e) => {
+            res.status(400).json({
+                error: e.message,
+            });
+        });
+
+    if (updateStatus) {
+        res.status(200).json({response:"updated", result: updateStatus });
+    }
+
+}
+
+export {
+    loginManager,
+    getManagerPromotions,
+    promoValidate,
 }

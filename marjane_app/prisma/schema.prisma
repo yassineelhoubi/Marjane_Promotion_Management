@@ -16,6 +16,7 @@ model Admin {
   lName    String
   email    String @unique
   password String
+  createdAt  DateTime @default(now())
 }
 
 model SubAdmin {
@@ -27,6 +28,7 @@ model SubAdmin {
   center    Center      @relation(fields: [idCenter], references: [id])
   idCenter  Int         @unique
   Promotion Promotion[]
+  createdAt  DateTime @default(now())
 }
 
 model Manager {
@@ -37,6 +39,7 @@ model Manager {
   password   String
   category   Category @relation(fields: [idCategory], references: [id])
   idCategory Int      @unique
+  createdAt  DateTime @default(now())
 }
 
 model Center {
@@ -44,15 +47,17 @@ model Center {
   name     String     @unique
   SubAdmin SubAdmin?
   Category Category[]
+  createdAt  DateTime @default(now())
 }
 
 model Category {
   id       Int       @id @default(autoincrement())
-  name     String    @unique
+  name     String    
   center   Center    @relation(fields: [idCenter], references: [id])
   idCenter Int
   Manager  Manager?
   Product  Product[]
+  createdAt  DateTime @default(now())
 }
 
 model Product {
@@ -60,8 +65,9 @@ model Product {
   name       String      @unique
   quantity   Int         @default(0)
   category   Category    @relation(fields: [idCategory], references: [id])
-  idCategory Int         @unique
+  idCategory Int         
   Promotion  Promotion[]
+  createdAt  DateTime @default(now())
 }
 
 model Promotion {
@@ -74,9 +80,11 @@ model Promotion {
   idSubAdmin     Int
   Product        Product  @relation(fields: [idProduct], references: [id])
   idProduct      Int
+  createdAt  DateTime @default(now())
 }
 
 model logs {
   id      Int  @id @default(autoincrement())
   comment Json
+  createdAt  DateTime @default(now())
 }
