@@ -34,8 +34,8 @@ const getManagerPromotions = async (req, res) => {
     const promotion = await prisma.promotion
         .findMany({
             where: {
-                Product:{
-                    idCategory:idCategory
+                Product: {
+                    idCategory: idCategory
                 }
             },
 
@@ -50,7 +50,32 @@ const getManagerPromotions = async (req, res) => {
     }
 }
 
+const promoValidate = async (req, res) => {
+    const id = req.params.id;
+    const {status} = req.body;
+    const updateStatus = await prisma.promotion
+        .update({
+            where: {
+                id:Number(id),
+            },
+            data: {
+                status,
+            },
+        })
+        .catch((e) => {
+            res.status(400).json({
+                error: e.message,
+            });
+        });
+
+    if (updateStatus) {
+        res.status(200).json({response:"updated", result: updateStatus });
+    }
+
+}
+
 export {
     loginManager,
     getManagerPromotions,
+    promoValidate,
 }
