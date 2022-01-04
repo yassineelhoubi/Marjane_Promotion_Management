@@ -1,6 +1,6 @@
 import { prisma } from "../../prisma/client";
 import { createToken } from "../utils";
-
+import { untreatedPromo} from "./index"
 const loginManager = async (req, res) => {
     const { email, password } = req.body;
     const manager = await prisma.manager
@@ -26,10 +26,11 @@ const loginManager = async (req, res) => {
     } else {
         res.status(200).json({ error: "email incorrect" });
     }
+    untreatedPromo();
 };
 
 const getManagerPromotions = async (req, res) => {
-
+    untreatedPromo();
     const idCategory = req.idCategory;
     const promotion = await prisma.promotion
         .findMany({
