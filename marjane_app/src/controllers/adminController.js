@@ -66,4 +66,15 @@ const getStats = async (req, res) => {
   res.status(200).json({ logs });
 };
 
-export { createSubAdmin, loginAdmin, getStats };
+const getCenters = async (req, res) => {
+  const centers = await prisma.center
+    .findMany()
+    .catch((e) => {
+      res.status(400).json({
+        error: e.message,
+      });
+    });
+  res.status(200).json({ centers });
+}
+
+export { createSubAdmin, loginAdmin, getStats, getCenters };

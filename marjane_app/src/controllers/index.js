@@ -1,4 +1,9 @@
-export { createSubAdmin, loginAdmin, getStats } from "./adminController";
+export {
+  createSubAdmin,
+  loginAdmin,
+  getStats,
+  getCenters,
+} from "./adminController";
 export {
   loginSubAdmin,
   createManager,
