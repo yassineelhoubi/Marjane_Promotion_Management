@@ -3,6 +3,7 @@ export {
   loginAdmin,
   getStats,
   getCenters,
+  getCentersPromotions,
 } from "./adminController";
 export {
   loginSubAdmin,
