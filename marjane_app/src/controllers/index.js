@@ -2,8 +2,6 @@ export {
   createSubAdmin,
   loginAdmin,
   getStats,
-  getCenters,
-  getCentersPromotions,
 } from "./adminController";
 export {
   loginSubAdmin,
@@ -16,3 +14,7 @@ export {
   promoValidate,
 } from "./managerController";
 export { untreatedPromo } from "./promotionController";
+export {
+  getCenters,
+  getCentersPromotions,
+} from "./centerController";
