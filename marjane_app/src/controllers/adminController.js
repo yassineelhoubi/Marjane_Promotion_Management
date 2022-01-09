@@ -37,7 +37,11 @@ const createSubAdmin = async (req, res, next) => {
         lName,
         email,
         password,
-        idCenter,
+        Center: {
+          connect: {
+            id: idCenter,
+          },
+        },
       },
     })
     .catch((e) => {
