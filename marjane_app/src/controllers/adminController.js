@@ -39,7 +39,7 @@ const createSubAdmin = async (req, res, next) => {
         password,
         Center: {
           connect: {
-            id: idCenter,
+            id: Number(idCenter),
           },
         },
       },
