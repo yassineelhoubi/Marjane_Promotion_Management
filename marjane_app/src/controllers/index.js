@@ -7,6 +7,7 @@ export {
   loginSubAdmin,
   createManager,
   createPromo,
+  getAllSubAdmin,
 } from "./subAdminController";
 export {
   loginManager,
