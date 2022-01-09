@@ -4,7 +4,13 @@
   "description": "",
   "main": "App.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node App.js"
+    "dev": "nodemon --exec babel-node App.js",
+    "migrate": "prisma migrate dev --name init",
+    "gen": "prisma generate",
+    "studio": "prisma studio",
+    "seed": "node prisma/seed.js",
+    "reset": "prisma migrate reset --force",
+    "db": "yarn reset && yarn migrate && yarn seed"
   },
   "keywords": [],
   "author": "",
