@@ -1,7 +1,6 @@
 import { mail } from "../utils";
 import { prisma } from "../../prisma/client";
 import { createToken, logs } from "../utils";
-import { read } from "fs";
 const loginSubAdmin = async (req, res) => {
   const { email, password } = req.body;
   const subAdmin = await prisma.subAdmin
@@ -151,4 +150,25 @@ const getAllSubAdmin = async (req, res) => {
   res.status(200).json({ subAdmins });
 }
 
-export { loginSubAdmin, createManager, createPromo, getAllSubAdmin };
+const removeCenter = async (req, res) => {
+  const id = Number(req.params.id);
+  prisma.subAdmin.update({
+    where: {
+      id
+    },
+    data: {
+      Center: {
+        set: []
+      }
+    }
+  }).then((result) => {
+    res.status(200).json({ result });
+  })
+    .catch((e) => {
+      res.status(400).json({
+        error: e.message,
+      });
+    });
+}
+
+export { loginSubAdmin, createManager, createPromo, getAllSubAdmin, removeCenter };
