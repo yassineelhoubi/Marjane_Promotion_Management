@@ -187,4 +187,21 @@ const deleteSubAdmin = async (req, res) => {
     });
 }
 
-export { loginSubAdmin, createManager, createPromo, getAllSubAdmin, removeCenter, deleteSubAdmin };
+const getSubAdmin = async (req, res) => {
+  const id = Number(req.params.id);
+  prisma.subAdmin.findUnique({
+    where: { id },
+    include:{
+      Center: true
+    }
+  }).then((result) => {
+    res.status(200).json({ result });
+  })
+    .catch((e) => {
+      res.status(400).json({
+        error: e.message,
+      });
+    });
+}
+
+export { loginSubAdmin, createManager, createPromo, getAllSubAdmin, removeCenter, deleteSubAdmin, getSubAdmin };

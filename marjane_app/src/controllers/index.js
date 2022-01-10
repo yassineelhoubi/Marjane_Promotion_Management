@@ -10,6 +10,7 @@ export {
   getAllSubAdmin,
   removeCenter,
   deleteSubAdmin,
+  getSubAdmin,
 } from "./subAdminController";
 export {
   loginManager,
