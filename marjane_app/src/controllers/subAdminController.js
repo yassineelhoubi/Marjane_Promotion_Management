@@ -191,7 +191,7 @@ const getSubAdmin = async (req, res) => {
   const id = Number(req.params.id);
   prisma.subAdmin.findUnique({
     where: { id },
-    include:{
+    include: {
       Center: true
     }
   }).then((result) => {
@@ -203,5 +203,39 @@ const getSubAdmin = async (req, res) => {
       });
     });
 }
+const updateSubAdmin = (req, res) => {
+  const id = Number(req.params.id);
+  const { fName, lName, idCenter } = req.body;
+  prisma.subAdmin.update({
+    where: { id },
+    data: {
+      fName,
+      lName,
+      Center: {
+        connect: {
+          id: Number(idCenter),
+        },
+      },
+    }
+  }).then((subAdmin) => {
+    res.status(200).json({ subAdmin });
+  })
+    .catch((e) => {
+      res.status(400).json({
+        error: e.message,
+      });
+    });
 
-export { loginSubAdmin, createManager, createPromo, getAllSubAdmin, removeCenter, deleteSubAdmin, getSubAdmin };
+
+}
+
+export {
+  loginSubAdmin,
+  createManager,
+  createPromo,
+  getAllSubAdmin,
+  removeCenter,
+  deleteSubAdmin,
+  getSubAdmin,
+  updateSubAdmin,
+};
