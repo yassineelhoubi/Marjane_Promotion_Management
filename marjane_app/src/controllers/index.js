@@ -9,6 +9,7 @@ export {
   createPromo,
   getAllSubAdmin,
   removeCenter,
+  deleteSubAdmin,
 } from "./subAdminController";
 export {
   loginManager,

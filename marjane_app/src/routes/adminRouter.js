@@ -7,7 +7,8 @@ import {
     getCenters,
     getCentersPromotions,
     getAllSubAdmin,
-    removeCenter
+    removeCenter,
+    deleteSubAdmin,
 } from "../controllers";
 import { Auth, checkAuth } from "../middlewares";
 
@@ -19,4 +20,5 @@ router.get("/getCenters", Auth("ADMIN"), getCenters)
 router.get("/centersPromotions", getCentersPromotions)
 router.get("/getAllSubAdmin", getAllSubAdmin)
 router.put("/removeCenter/:id", removeCenter)
+router.delete("/deleteSubAdmin/:id", deleteSubAdmin)
 export { router };
