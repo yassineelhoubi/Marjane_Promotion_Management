@@ -19,10 +19,10 @@ router.post("/login", loginAdmin);//login
 router.get("/logs", getStats);//get statistics
 router.get("/checkAuth", checkAuth("ADMIN")); // Check if autheticated with token
 router.get("/getCenters", Auth("ADMIN"), getCenters); // get all centers
-router.get("/centersPromotions", getCentersPromotions); //get All promotion and his centers
-router.get("/getAllSubAdmin", getAllSubAdmin); //get all subAdmins
-router.put("/removeCenter/:id", removeCenter); //remove connection between center and subAdmin
-router.delete("/deleteSubAdmin/:id", deleteSubAdmin); //delete sub admin
-router.get("/getSubAdmin/:id", getSubAdmin); //get subAdmin by id
-router.put("/updateSubAdmin/:id", updateSubAdmin); //update subAdmin
+router.get("/centersPromotions", Auth("ADMIN"), getCentersPromotions); //get All promotion and his centers
+router.get("/getAllSubAdmin", Auth("ADMIN"), getAllSubAdmin); //get all subAdmins
+router.put("/removeCenter/:id", Auth("ADMIN"), removeCenter); //remove connection between center and subAdmin
+router.delete("/deleteSubAdmin/:id", Auth("ADMIN"), deleteSubAdmin); //delete sub admin
+router.get("/getSubAdmin/:id", Auth("ADMIN"), getSubAdmin); //get subAdmin by id
+router.put("/updateSubAdmin/:id", Auth("ADMIN"), updateSubAdmin); //update subAdmin
 export { router };
