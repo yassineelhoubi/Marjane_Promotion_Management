@@ -17,7 +17,7 @@ import { Auth, checkAuth } from "../middlewares";
 router.post("/createSubAdmin", Auth("ADMIN"), createSubAdmin);// create subAdmin
 router.post("/login", loginAdmin);//login
 router.get("/logs", getStats);//get statistics
-router.post("/checkAuth", checkAuth); // Check if autheticated with token
+router.get("/checkAuth", checkAuth("ADMIN")); // Check if autheticated with token
 router.get("/getCenters", Auth("ADMIN"), getCenters); // get all centers
 router.get("/centersPromotions", getCentersPromotions); //get All promotion and his centers
 router.get("/getAllSubAdmin", getAllSubAdmin); //get all subAdmins
