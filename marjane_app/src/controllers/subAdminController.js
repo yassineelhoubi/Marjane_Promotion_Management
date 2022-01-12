@@ -37,7 +37,9 @@ const loginSubAdmin = async (req, res) => {
 };
 
 const createManager = async (req, res) => {
-  const { fName, lName, email, password, idCategory } = req.body;
+  const { fName, lName, email, password } = req.body;
+  const idCategory = Number(req.body.idCategory)
+  console.log(req.body);
   const newManager = await prisma.manager
     .create({
       data: {
@@ -45,7 +47,7 @@ const createManager = async (req, res) => {
         lName,
         email,
         password,
-        idCategory,
+        idCategory
       },
     })
     .catch((e) => {
