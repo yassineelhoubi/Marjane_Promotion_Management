@@ -1,6 +1,6 @@
 import { prisma } from "../../prisma/client";
 import { createToken } from "../utils";
-import { untreatedPromo} from "./index"
+import { untreatedPromo } from "./index"
 const loginManager = async (req, res) => {
     const { email, password } = req.body;
     const manager = await prisma.manager
@@ -53,11 +53,11 @@ const getManagerPromotions = async (req, res) => {
 
 const promoValidate = async (req, res) => {
     const id = req.params.id;
-    const {status} = req.body;
+    const { status } = req.body;
     const updateStatus = await prisma.promotion
         .update({
             where: {
-                id:Number(id),
+                id: Number(id),
             },
             data: {
                 status,
@@ -70,13 +70,25 @@ const promoValidate = async (req, res) => {
         });
 
     if (updateStatus) {
-        res.status(200).json({response:"updated", result: updateStatus });
+        res.status(200).json({ response: "updated", result: updateStatus });
     }
+    
+}
 
+const getAllManagerCenter = async (req, res) => {
+    const idSubAdmin = req.idSubAdmin;
+    const managers = await prisma.$queryRaw`SELECT manager.* , category.name as categoName FROM manager, category, center, _centertosubadmin WHERE manager.idCategory = category.id and category.idCenter = center.id and _centertosubadmin.B =${idSubAdmin} and _centertosubadmin.A = center.id`
+    .catch((e) => {
+        res.status(400).json({
+            error: e.message,
+        });
+    });
+    res.status(200).json({ managers: managers });
 }
 
 export {
     loginManager,
     getManagerPromotions,
     promoValidate,
+    getAllManagerCenter,
 }

@@ -1,6 +1,7 @@
 import { mail } from "../utils";
 import { prisma } from "../../prisma/client";
 import { createToken, logs } from "../utils";
+import { verifyToken } from "../utils";
 const loginSubAdmin = async (req, res) => {
   const { email, password } = req.body;
   const subAdmin = await prisma.subAdmin
@@ -36,7 +37,9 @@ const loginSubAdmin = async (req, res) => {
 };
 
 const createManager = async (req, res) => {
-  const { fName, lName, email, password, idCategory } = req.body;
+  const { fName, lName, email, password } = req.body;
+  const idCategory = Number(req.body.idCategory)
+  console.log(req.body);
   const newManager = await prisma.manager
     .create({
       data: {
@@ -44,7 +47,7 @@ const createManager = async (req, res) => {
         lName,
         email,
         password,
-        idCategory,
+        idCategory
       },
     })
     .catch((e) => {
@@ -137,4 +140,119 @@ const createPromo = async (req, res) => {
   }
 };
 
-export { loginSubAdmin, createManager, createPromo };
+const getAllSubAdmin = async (req, res) => {
+  const subAdmins = await prisma.subAdmin.findMany({
+    include: {
+      Center: true
+    }
+  }).catch((e) => {
+    res.status(400).json({
+      error: e.message,
+    });
+  });
+  res.status(200).json({ subAdmins });
+}
+
+const removeCenter = async (req, res) => {
+  const id = Number(req.params.id);
+  prisma.subAdmin.update({
+    where: {
+      id
+    },
+    data: {
+      Center: {
+        set: []
+      }
+    }
+  }).then((result) => {
+    res.status(200).json({ result });
+  })
+    .catch((e) => {
+      res.status(400).json({
+        error: e.message,
+      });
+    });
+}
+
+const deleteSubAdmin = async (req, res) => {
+  const id = Number(req.params.id);
+  prisma.subAdmin.delete({
+    where: {
+      id
+    },
+  }).then((result) => {
+    res.status(200).json({ result });
+  })
+    .catch((e) => {
+      res.status(400).json({
+        error: e.message,
+      });
+    });
+}
+
+const getSubAdmin = async (req, res) => {
+  const id = Number(req.params.id);
+  prisma.subAdmin.findUnique({
+    where: { id },
+    include: {
+      Center: true
+    }
+  }).then((result) => {
+    res.status(200).json({ result });
+  })
+    .catch((e) => {
+      res.status(400).json({
+        error: e.message,
+      });
+    });
+}
+const updateSubAdmin = (req, res) => {
+  const id = Number(req.params.id);
+  const { fName, lName, idCenter } = req.body;
+  prisma.subAdmin.update({
+    where: { id },
+    data: {
+      fName,
+      lName,
+      Center: {
+        connect: {
+          id: Number(idCenter),
+        },
+      },
+    }
+  }).then((subAdmin) => {
+    res.status(200).json({ subAdmin });
+  })
+    .catch((e) => {
+      res.status(400).json({
+        error: e.message,
+      });
+    });
+}
+const idFromToken = (role = "") =>
+  async (req, res, next) => {
+    const bearer = req?.headers?.authorization;
+    if (!bearer) {
+      return;
+    }
+    const token = bearer.split(" ")[1];
+    const payload = verifyToken(token, role);
+    if (!payload) {
+      return res.status(401).json({ error: "unauthenticated" });
+    }
+
+    req.idSubAdmin = payload.subAdmin.id;
+    next()
+  };
+  
+export {
+  loginSubAdmin,
+  createManager,
+  createPromo,
+  getAllSubAdmin,
+  removeCenter,
+  deleteSubAdmin,
+  getSubAdmin,
+  updateSubAdmin,
+  idFromToken
+};
