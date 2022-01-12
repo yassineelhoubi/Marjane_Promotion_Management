@@ -75,7 +75,7 @@ const promoValidate = async (req, res) => {
     
 }
 
-const getAllManager = async (req, res) => {
+const getAllManagerCenter = async (req, res) => {
     const idSubAdmin = req.idSubAdmin;
     const managers = await prisma.$queryRaw`SELECT manager.* , category.name as categoName FROM manager, category, center, _centertosubadmin WHERE manager.idCategory = category.id and category.idCenter = center.id and _centertosubadmin.B =${idSubAdmin} and _centertosubadmin.A = center.id`
     .catch((e) => {
@@ -90,5 +90,5 @@ export {
     loginManager,
     getManagerPromotions,
     promoValidate,
-    getAllManager,
+    getAllManagerCenter,
 }

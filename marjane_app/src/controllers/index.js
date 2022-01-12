@@ -18,7 +18,7 @@ export {
   loginManager,
   getManagerPromotions,
   promoValidate,
-  getAllManager,
+  getAllManagerCenter,
 } from "./managerController";
 export { untreatedPromo } from "./promotionController";
 export {
