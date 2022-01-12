@@ -12,11 +12,13 @@ export {
   deleteSubAdmin,
   getSubAdmin,
   updateSubAdmin,
+  idFromToken
 } from "./subAdminController";
 export {
   loginManager,
   getManagerPromotions,
   promoValidate,
+  getAllManager,
 } from "./managerController";
 export { untreatedPromo } from "./promotionController";
 export {

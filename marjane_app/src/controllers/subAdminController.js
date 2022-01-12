@@ -1,6 +1,7 @@
 import { mail } from "../utils";
 import { prisma } from "../../prisma/client";
 import { createToken, logs } from "../utils";
+import { verifyToken } from "../utils";
 const loginSubAdmin = async (req, res) => {
   const { email, password } = req.body;
   const subAdmin = await prisma.subAdmin
@@ -225,10 +226,23 @@ const updateSubAdmin = (req, res) => {
         error: e.message,
       });
     });
-
-
 }
+const idFromToken = (role = "") =>
+  async (req, res, next) => {
+    const bearer = req?.headers?.authorization;
+    if (!bearer) {
+      return;
+    }
+    const token = bearer.split(" ")[1];
+    const payload = verifyToken(token, role);
+    if (!payload) {
+      return res.status(401).json({ error: "unauthenticated" });
+    }
 
+    req.idSubAdmin = payload.subAdmin.id;
+    next()
+  };
+  
 export {
   loginSubAdmin,
   createManager,
@@ -238,4 +252,5 @@ export {
   deleteSubAdmin,
   getSubAdmin,
   updateSubAdmin,
+  idFromToken
 };

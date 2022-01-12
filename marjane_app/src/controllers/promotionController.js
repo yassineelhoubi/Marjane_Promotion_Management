@@ -3,7 +3,6 @@ import { prisma } from "../../prisma/client";
 const untreatedPromo = async (req, res) => {
   const dateNow = new Date();
   const hourNow = dateNow.getHours();
-  console.log("zes");
   if (hourNow > 12) {
     const result = await prisma.promotion
       .updateMany({
