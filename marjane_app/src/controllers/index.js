@@ -25,3 +25,4 @@ export {
   getCenters,
   getCentersPromotions,
 } from "./centerController";
+export { getCategoriesCenter } from "./categoryController"
