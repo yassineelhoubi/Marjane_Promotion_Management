@@ -22,6 +22,7 @@ export {
   getAllManagerCenter,
   createManager,
   deleteManager,
+  updateManager,
 } from "./managerController";
 
 export { untreatedPromo } from "./promotionController";

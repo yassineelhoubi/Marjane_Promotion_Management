@@ -139,6 +139,26 @@ const deleteManager = async (req, res) => {
         });
 }
 
+const updateManager = async (req, res) => {
+    const id = Number(req.params.id);
+    const { fName, lName, idCategory } = req.body;
+    prisma.manager.update({
+        where: { id },
+        data: {
+            fName,
+            lName,
+            idCategory
+        }
+    }).then((manager) => {
+        res.status(200).json({ manager });
+    })
+        .catch((e) => {
+            res.status(400).json({
+                error: e.message,
+            });
+        });
+}
+
 export {
     loginManager,
     getManagerPromotions,
@@ -146,4 +166,5 @@ export {
     getAllManagerCenter,
     createManager,
     deleteManager,
+    updateManager,
 }
