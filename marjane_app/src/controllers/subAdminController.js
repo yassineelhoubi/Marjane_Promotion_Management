@@ -36,42 +36,6 @@ const loginSubAdmin = async (req, res) => {
   }
 };
 
-const createManager = async (req, res) => {
-  const { fName, lName, email, password } = req.body;
-  const idCategory = Number(req.body.idCategory)
-  console.log(req.body);
-  const newManager = await prisma.manager
-    .create({
-      data: {
-        fName,
-        lName,
-        email,
-        password,
-        idCategory
-      },
-    })
-    .catch((e) => {
-      res.status(400).json({
-        error: e.message,
-      });
-    });
-  if (newManager) {
-    const comment = {
-      auth: req.body.idSubAdmin,
-      operation: "create manager",
-      details: newManager,
-    };
-    logs(comment);
-    mail(
-      newManager.email,
-      newManager.password,
-      newManager.fName + " " + newManager.lName
-    );
-    res.status(201).json({
-      response: "manager is create and email sent to the mailbox",
-    });
-  }
-};
 
 const createPromo = async (req, res) => {
   const { percentage, pointsFidelity, idSubAdmin, idProduct } = req.body;
@@ -247,7 +211,6 @@ const idFromToken = (role = "") =>
   
 export {
   loginSubAdmin,
-  createManager,
   createPromo,
   getAllSubAdmin,
   removeCenter,
