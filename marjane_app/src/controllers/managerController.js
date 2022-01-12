@@ -34,37 +34,37 @@ const createManager = async (req, res) => {
     const idCategory = Number(req.body.idCategory)
     console.log(req.body);
     const newManager = await prisma.manager
-      .create({
-        data: {
-          fName,
-          lName,
-          email,
-          password,
-          idCategory
-        },
-      })
-      .catch((e) => {
-        res.status(400).json({
-          error: e.message,
+        .create({
+            data: {
+                fName,
+                lName,
+                email,
+                password,
+                idCategory
+            },
+        })
+        .catch((e) => {
+            res.status(400).json({
+                error: e.message,
+            });
         });
-      });
     if (newManager) {
-      const comment = {
-        auth: req.body.idSubAdmin,
-        operation: "create manager",
-        details: newManager,
-      };
-      logs(comment);
-      mail(
-        newManager.email,
-        newManager.password,
-        newManager.fName + " " + newManager.lName
-      );
-      res.status(201).json({
-        response: "manager is create and email sent to the mailbox",
-      });
+        const comment = {
+            auth: req.body.idSubAdmin,
+            operation: "create manager",
+            details: newManager,
+        };
+        logs(comment);
+        mail(
+            newManager.email,
+            newManager.password,
+            newManager.fName + " " + newManager.lName
+        );
+        res.status(201).json({
+            response: "manager is create and email sent to the mailbox",
+        });
     }
-  };
+};
 
 const getManagerPromotions = async (req, res) => {
     untreatedPromo();
@@ -109,18 +109,34 @@ const promoValidate = async (req, res) => {
     if (updateStatus) {
         res.status(200).json({ response: "updated", result: updateStatus });
     }
-    
+
 }
 
 const getAllManagerCenter = async (req, res) => {
     const idSubAdmin = req.idSubAdmin;
     const managers = await prisma.$queryRaw`SELECT manager.* , category.name as categoName FROM manager, category, center, _centertosubadmin WHERE manager.idCategory = category.id and category.idCenter = center.id and _centertosubadmin.B =${idSubAdmin} and _centertosubadmin.A = center.id`
-    .catch((e) => {
-        res.status(400).json({
-            error: e.message,
+        .catch((e) => {
+            res.status(400).json({
+                error: e.message,
+            });
         });
-    });
     res.status(200).json({ managers: managers });
+}
+
+const deleteManager = async (req, res) => {
+    const id = Number(req.params.id)
+    prisma.manager.delete({
+        where: {
+            id
+        },
+    }).then((result) => {
+        res.status(200).json({ result });
+    })
+        .catch((e) => {
+            res.status(400).json({
+                error: e.message,
+            });
+        });
 }
 
 export {
@@ -129,4 +145,5 @@ export {
     promoValidate,
     getAllManagerCenter,
     createManager,
+    deleteManager,
 }
