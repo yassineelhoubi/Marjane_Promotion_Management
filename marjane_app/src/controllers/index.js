@@ -3,9 +3,9 @@ export {
   loginAdmin,
   getStats,
 } from "./adminController";
+
 export {
   loginSubAdmin,
-  createManager,
   createPromo,
   getAllSubAdmin,
   removeCenter,
@@ -14,15 +14,23 @@ export {
   updateSubAdmin,
   idFromToken
 } from "./subAdminController";
+
 export {
   loginManager,
   getManagerPromotions,
   promoValidate,
   getAllManagerCenter,
+  createManager,
+  deleteManager,
+  updateManager,
+  getManager,
 } from "./managerController";
+
 export { untreatedPromo } from "./promotionController";
+
 export {
   getCenters,
   getCentersPromotions,
 } from "./centerController";
+
 export { getCategoriesCenter } from "./categoryController"
