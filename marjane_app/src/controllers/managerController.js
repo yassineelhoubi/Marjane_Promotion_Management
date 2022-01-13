@@ -147,7 +147,7 @@ const updateManager = async (req, res) => {
         data: {
             fName,
             lName,
-            idCategory
+            idCategory : Number(idCategory)
         }
     }).then((manager) => {
         res.status(200).json({ manager });
