@@ -3,7 +3,7 @@ import { logs } from "../utils";
 
 const createPromo = async (req, res) => {
   const { percentage, pointsFidelity, idSubAdmin, idProduct } = req.body;
-  
+
   const productCatego = await prisma.product.findMany({
     where: {
       id: Number(idProduct),
@@ -36,11 +36,13 @@ const createPromo = async (req, res) => {
         };
         logs(comment);
         res.status(201).json({
+          status:true,
           response: "Promotion created successfully",
         });
       }
     } else {
       res.status(200).json({
+        status: false,
         response: "Porcenteage > 20%",
       });
     }
@@ -68,11 +70,13 @@ const createPromo = async (req, res) => {
         };
         logs(comment);
         res.status(201).json({
+          status: true,
           response: "Promotion created successfully",
         });
       }
     } else {
       res.status(200).json({
+        status:false,
         response: "Porcenteage > 50%",
       });
     }
