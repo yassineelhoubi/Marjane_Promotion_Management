@@ -8,7 +8,8 @@ import {
     idFromToken,
     getCategoriesCenter,
     deleteManager,
-    updateManager
+    updateManager,
+    getManager,
 } from "../controllers";
 
 import { Auth, checkAuth } from "../middlewares";
@@ -21,5 +22,6 @@ router.get("/getAllManagerCenter", Auth("SUBADMIN"), idFromToken("SUBADMIN"), ge
 router.get("/getCategoriesCenter", Auth("SUBADMIN"), idFromToken("SUBADMIN"), getCategoriesCenter); // Bring all categories to the center of this subAdmin
 router.delete("/deleteManager/:id", Auth("SUBADMIN"), deleteManager); // Delete Manager 
 router.put("/updateManager/:id", Auth("SUBADMIN"), updateManager); // Update Manager info
+router.get("/getManager/:id", getManager); // Get a manager with category name by Id
 
 export { router };

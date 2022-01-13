@@ -159,6 +159,27 @@ const updateManager = async (req, res) => {
         });
 }
 
+const getManager = async (req, res) => {
+    const id = Number(req.params.id);
+    prisma.manager.findUnique({
+        where: { id },
+        include: {
+            category: {
+                select: {
+                    name: true,
+                }
+            }
+        }
+    }).then((manager) => {
+        res.status(200).json({ manager });
+    })
+        .catch((e) => {
+            res.status(400).json({
+                error: e.message,
+            });
+        });
+}
+
 export {
     loginManager,
     getManagerPromotions,
@@ -167,4 +188,5 @@ export {
     createManager,
     deleteManager,
     updateManager,
+    getManager,
 }

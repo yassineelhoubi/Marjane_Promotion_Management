@@ -23,6 +23,7 @@ export {
   createManager,
   deleteManager,
   updateManager,
+  getManager,
 } from "./managerController";
 
 export { untreatedPromo } from "./promotionController";
