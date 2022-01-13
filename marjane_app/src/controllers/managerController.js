@@ -32,7 +32,6 @@ const loginManager = async (req, res) => {
 const createManager = async (req, res) => {
     const { fName, lName, email, password } = req.body;
     const idCategory = Number(req.body.idCategory)
-    console.log(req.body);
     const newManager = await prisma.manager
         .create({
             data: {

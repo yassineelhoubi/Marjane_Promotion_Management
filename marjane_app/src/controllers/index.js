@@ -6,7 +6,6 @@ export {
 
 export {
   loginSubAdmin,
-  createPromo,
   getAllSubAdmin,
   removeCenter,
   deleteSubAdmin,
@@ -26,7 +25,10 @@ export {
   getManager,
 } from "./managerController";
 
-export { untreatedPromo } from "./promotionController";
+export {
+  createPromo,
+  untreatedPromo
+} from "./promotionController";
 
 export {
   getCenters,

@@ -1,4 +1,73 @@
 import { prisma } from "../../prisma/client";
+import { logs } from "../utils";
+
+const createPromo = async (req, res) => {
+  const { percentage, pointsFidelity, idSubAdmin, idProduct } = req.body;
+  const productCatego = await prisma.product.findMany({
+    where: {
+      id: idProduct,
+    },
+    include: {
+      category: true,
+    },
+  });
+  if (productCatego[0].category.name == "multimedia") {
+    if (percentage <= 20) {
+      const newPromo = await prisma.promotion
+        .create({
+          data: { percentage, pointsFidelity, idSubAdmin, idProduct },
+        })
+        .catch((e) => {
+          res.status(400).json({
+            error: e.message,
+          });
+        });
+      if (newPromo) {
+        const comment = {
+          auth: req.body.idSubAdmin,
+          operation: "create promo",
+          details: newPromo,
+        };
+        logs(comment);
+        res.status(201).json({
+          response: "Promotion created successfully",
+        });
+      }
+    } else {
+      res.status(200).json({
+        response: "Porcenteage > 20%",
+      });
+    }
+  } else {
+    if (percentage <= 50) {
+      const newPromo = await prisma.promotion
+        .create({
+          data: { percentage, pointsFidelity, idSubAdmin, idProduct },
+        })
+        .catch((e) => {
+          res.status(400).json({
+            error: e.message,
+          });
+        });
+      if (newPromo) {
+        const comment = {
+          auth: req.body.idSubAdmin,
+          operation: "create promo",
+          details: newPromo,
+        };
+        logs(comment);
+        res.status(201).json({
+          response: "Promotion created successfully",
+        });
+      }
+    } else {
+      res.status(200).json({
+        response: "Porcenteage > 50%",
+      });
+    }
+  }
+};
+
 
 const untreatedPromo = async (req, res) => {
   const dateNow = new Date();
@@ -42,4 +111,4 @@ const untreatedPromo = async (req, res) => {
   }
 };
 
-export { untreatedPromo };
+export { createPromo, untreatedPromo };
