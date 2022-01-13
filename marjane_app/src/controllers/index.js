@@ -36,3 +36,5 @@ export {
 } from "./centerController";
 
 export { getCategoriesCenter } from "./categoryController"
+
+export { getProductsCenter } from "./productController"
