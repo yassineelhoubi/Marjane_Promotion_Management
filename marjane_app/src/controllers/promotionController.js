@@ -126,7 +126,7 @@ const untreatedPromo = async (req, res) => {
   }
 };
 const getPromotionsCenter = async (req, res) => {
-  const idSubAdmin = Number(req.params.idSubAdmin);
+  const idSubAdmin = Number(req.body.idSubAdmin);
   const promotions = await prisma.promotion
     .findMany({
       where: {
