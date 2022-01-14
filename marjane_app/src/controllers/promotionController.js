@@ -133,7 +133,16 @@ const getPromotionsCenter = async (req, res) => {
         idSubAdmin,
       },
       include: {
-        Product: true
+        Product: {
+          select: {
+            name: true,
+            category: {
+              select: {
+                name: true,
+              }
+            }
+          },
+        },
       }
     }).catch((e) => {
       res.status(400).json({
