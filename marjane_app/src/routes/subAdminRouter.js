@@ -11,6 +11,7 @@ import {
     updateManager,
     getManager,
     getProductsCenter,
+    getPromotionsCenter,
 } from "../controllers";
 
 import { Auth, checkAuth } from "../middlewares";
@@ -25,5 +26,6 @@ router.delete("/deleteManager/:id", Auth("SUBADMIN"), deleteManager); // Delete 
 router.put("/updateManager/:id", Auth("SUBADMIN"), updateManager); // Update Manager info
 router.get("/getManager/:id", Auth("SUBADMIN"), getManager); // Get a manager with category name by Id
 router.get("/getProductsCenter", Auth("SUBADMIN"), idFromToken("SUBADMIN"), getProductsCenter); // Get All Product to the center of this subAdmin
+router.get("/getPromotionsCenter/:idSubAdmin", Auth("SUBADMIN"), getPromotionsCenter); // Get All Promotion to the center of this subAdmin
 
 export { router };

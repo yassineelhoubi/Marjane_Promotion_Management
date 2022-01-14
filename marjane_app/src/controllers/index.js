@@ -27,7 +27,8 @@ export {
 
 export {
   createPromo,
-  untreatedPromo
+  untreatedPromo,
+  getPromotionsCenter,
 } from "./promotionController";
 
 export {

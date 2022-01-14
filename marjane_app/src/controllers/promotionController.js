@@ -36,7 +36,7 @@ const createPromo = async (req, res) => {
         };
         logs(comment);
         res.status(201).json({
-          status:true,
+          status: true,
           response: "Promotion created successfully",
         });
       }
@@ -76,7 +76,7 @@ const createPromo = async (req, res) => {
       }
     } else {
       res.status(200).json({
-        status:false,
+        status: false,
         response: "Porcenteage > 50%",
       });
     }
@@ -125,5 +125,22 @@ const untreatedPromo = async (req, res) => {
       });
   }
 };
+const getPromotionsCenter = async (req, res) => {
+  const idSubAdmin = Number(req.params.idSubAdmin);
+  const promotions = await prisma.promotion
+    .findMany({
+      where: {
+        idSubAdmin,
+      },
+      include: {
+        Product: true
+      }
+    }).catch((e) => {
+      res.status(400).json({
+        error: e.message,
+      });
+    });
+  res.status(201).json(promotions);
+}
 
-export { createPromo, untreatedPromo };
+export { createPromo, untreatedPromo, getPromotionsCenter };
