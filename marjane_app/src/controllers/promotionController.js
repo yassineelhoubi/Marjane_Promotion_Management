@@ -151,5 +151,24 @@ const getPromotionsCenter = async (req, res) => {
     });
   res.status(201).json(promotions);
 }
+const getManagerPromotions = async (req, res) => {
+  untreatedPromo();
+  const idCategory = req.idCategory;
+  const promotions = await prisma.promotion
+    .findMany({
+      where: {
+        Product: {
+          idCategory: idCategory
+        }
+      },
 
-export { createPromo, untreatedPromo, getPromotionsCenter };
+    })
+    .catch((e) => {
+      res.status(400).json({
+        error: e.message,
+      });
+    });
+  res.status(200).json({ promotions });
+}
+
+export { createPromo, untreatedPromo, getPromotionsCenter, getManagerPromotions };

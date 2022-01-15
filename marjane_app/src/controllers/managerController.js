@@ -65,28 +65,6 @@ const createManager = async (req, res) => {
     }
 };
 
-const getManagerPromotions = async (req, res) => {
-    untreatedPromo();
-    const idCategory = req.idCategory;
-    const promotion = await prisma.promotion
-        .findMany({
-            where: {
-                Product: {
-                    idCategory: idCategory
-                }
-            },
-
-        })
-        .catch((e) => {
-            res.status(400).json({
-                error: e.message,
-            });
-        });
-    if (promotion) {
-        res.status(200).json({ promotion: promotion });
-    }
-}
-
 const promoValidate = async (req, res) => {
     const id = req.params.id;
     const { status } = req.body;
@@ -146,7 +124,7 @@ const updateManager = async (req, res) => {
         data: {
             fName,
             lName,
-            idCategory : Number(idCategory)
+            idCategory: Number(idCategory)
         }
     }).then((manager) => {
         res.status(200).json({ manager });
@@ -181,7 +159,6 @@ const getManager = async (req, res) => {
 
 export {
     loginManager,
-    getManagerPromotions,
     promoValidate,
     getAllManagerCenter,
     createManager,
