@@ -182,4 +182,28 @@ const getManagerPromotions = async (req, res) => {
   res.status(200).json({ promotions });
 }
 
-export { createPromo, untreatedPromo, getPromotionsCenter, getManagerPromotions };
+const promoValidate = async (req, res) => {
+  const id = req.params.id;
+  const { status, comment } = req.body;
+  const updateStatus = await prisma.promotion
+    .update({
+      where: {
+        id: Number(id),
+      },
+      data: {
+        status,
+        comment,
+      },
+    })
+    .catch((e) => {
+      res.status(400).json({
+        error: e.message,
+      });
+    });
+
+  if (updateStatus) {
+    res.status(200).json({ response: "updated", result: updateStatus });
+  }
+}
+
+export { createPromo, untreatedPromo, getPromotionsCenter, getManagerPromotions, promoValidate };
