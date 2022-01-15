@@ -161,7 +161,18 @@ const getManagerPromotions = async (req, res) => {
           idCategory: idCategory
         }
       },
-
+      include: {
+        Product: {
+          select: {
+            name: true,
+            category: {
+              select: {
+                name: true,
+              }
+            },
+          },
+        },
+      }
     })
     .catch((e) => {
       res.status(400).json({
