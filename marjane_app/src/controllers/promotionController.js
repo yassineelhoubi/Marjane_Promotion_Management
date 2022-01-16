@@ -205,5 +205,14 @@ const promoValidate = async (req, res) => {
     res.status(200).json({ response: "updated", result: updateStatus });
   }
 }
+const getAllPromotions = async (req, res) => {
+  const stats = await prisma.promotion
+    .findMany().catch((e) => {
+      res.status(400).json({
+        error: e.message,
+      });
+    });
+  res.status(200).json({ stats });
+}
 
-export { createPromo, untreatedPromo, getPromotionsCenter, getManagerPromotions, promoValidate };
+export { createPromo, untreatedPromo, getPromotionsCenter, getManagerPromotions, promoValidate, getAllPromotions };

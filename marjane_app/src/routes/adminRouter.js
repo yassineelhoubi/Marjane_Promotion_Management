@@ -11,6 +11,7 @@ import {
     deleteSubAdmin,
     getSubAdmin,
     updateSubAdmin,
+    getAllPromotions
 } from "../controllers";
 import { Auth, checkAuth } from "../middlewares";
 
@@ -25,4 +26,5 @@ router.put("/removeCenter/:id", Auth("ADMIN"), removeCenter); //remove connectio
 router.delete("/deleteSubAdmin/:id", Auth("ADMIN"), deleteSubAdmin); //delete sub admin
 router.get("/getSubAdmin/:id", Auth("ADMIN"), getSubAdmin); //get subAdmin by id
 router.put("/updateSubAdmin/:id", Auth("ADMIN"), updateSubAdmin); //update subAdmin
+router.get("/getAllPromotions",Auth("ADMIN"), getAllPromotions); 
 export { router };

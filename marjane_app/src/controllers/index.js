@@ -29,6 +29,7 @@ export {
   getPromotionsCenter,
   getManagerPromotions,
   promoValidate,
+  getAllPromotions,
 } from "./promotionController";
 
 export {
